@@ -1,21 +1,35 @@
 package com.jonydelivery.api.controller;
 
 import com.jonydelivery.domain.model.Cliente;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.RestController;
+import com.jonydelivery.domain.repository.ClienteRepository;
+import lombok.AllArgsConstructor;
+import org.springframework.http.HttpStatus;
+import org.springframework.http.ResponseEntity;
+import org.springframework.web.bind.annotation.*;
 
-import javax.persistence.EntityManager;
-import javax.persistence.PersistenceContext;
 import java.util.List;
 
+@AllArgsConstructor
 @RestController
+@RequestMapping("/clientes")
 public class ClienteController {
 
-    @PersistenceContext
-    private EntityManager em;
+    private ClienteRepository repository;
 
-    @GetMapping("/clientes")
+    @GetMapping
     public List<Cliente> listar(){
-        return em.createQuery("FROM Cliente", Cliente.class).getResultList();
+        return repository.findAll();
     }
+
+    @GetMapping("/{id}")
+    public ResponseEntity<Cliente> buscar(@PathVariable Long id){
+        return repository.findById(id).map(ResponseEntity::ok).orElseGet(() -> ResponseEntity.notFound().build());
+    }
+
+    @PostMapping
+    @ResponseStatus(HttpStatus.CREATED)
+    public Cliente inserir(@RequestBody Cliente cliente){
+        return repository.save(cliente);
+    }
+
 }

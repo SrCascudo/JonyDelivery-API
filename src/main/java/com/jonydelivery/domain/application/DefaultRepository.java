@@ -1,4 +1,6 @@
 package com.jonydelivery.domain.application;
 
-public abstract class DefaultRepository <T extends DefaultModel> implements Repository<T> {
-}
+import org.springframework.data.jpa.repository.JpaRepository;
+
+@org.springframework.stereotype.Repository
+public interface DefaultRepository<T extends DefaultModel> extends JpaRepository<T, Long> { }
