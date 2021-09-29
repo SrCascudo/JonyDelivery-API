@@ -21,11 +21,11 @@ public class ClienteController {
 
     @GetMapping
     public List<Cliente> listar(){
-        var list = repository.findAll();
+        List<Cliente> list = repository.findAll();
         if (list != null && !list.isEmpty())
             return list;
 
-        var cliente = new Cliente();
+        Cliente cliente = new Cliente();
         cliente.setId(1L);
         cliente.setNome("John Helder C. Alves");
         cliente.setEmail("john@gmail.com");
