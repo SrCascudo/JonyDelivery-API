@@ -1,19 +1,18 @@
 package com.jonydelivery.domain.application;
 
-import lombok.EqualsAndHashCode;
-import lombok.Getter;
-import lombok.Setter;
-
-import javax.persistence.*;
+import javax.persistence.Column;
+import javax.persistence.GeneratedValue;
+import javax.persistence.GenerationType;
+import javax.persistence.Id;
+import javax.persistence.MappedSuperclass;
+import javax.persistence.Temporal;
+import javax.persistence.TemporalType;
 import java.util.Date;
 
-@Getter
-@Setter
 @MappedSuperclass
 public abstract class DefaultModel {
 
     @Id
-    @EqualsAndHashCode.Include
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
 
@@ -27,4 +26,36 @@ public abstract class DefaultModel {
 
     @Column(columnDefinition = "integer default 1")
     private Integer registro;
+
+    public Long getId() {
+        return id;
+    }
+
+    public void setId(Long id) {
+        this.id = id;
+    }
+
+    public Date getDtcadastro() {
+        return dtcadastro;
+    }
+
+    public void setDtcadastro(Date dtcadastro) {
+        this.dtcadastro = dtcadastro;
+    }
+
+    public Date getDtalteracao() {
+        return dtalteracao;
+    }
+
+    public void setDtalteracao(Date dtalteracao) {
+        this.dtalteracao = dtalteracao;
+    }
+
+    public Integer getRegistro() {
+        return registro;
+    }
+
+    public void setRegistro(Integer registro) {
+        this.registro = registro;
+    }
 }
